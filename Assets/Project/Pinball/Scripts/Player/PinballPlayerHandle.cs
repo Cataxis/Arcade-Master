@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PinballHandle : MonoBehaviour
+public class PinballPlayerHandle : MonoBehaviour
 {
     [SerializeField] private float rotationDelta;
     [SerializeField] private float activatedRotation;
@@ -10,7 +10,6 @@ public class PinballHandle : MonoBehaviour
     private float initialRotation;
 
     private bool isActive = false;
-    private bool isRotating = false;
 
     private void Awake()
     {

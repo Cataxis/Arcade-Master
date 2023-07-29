@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PinballPlayerController : MonoBehaviour
 {
-    [SerializeField] private PinballHandle[] handles;
+    [SerializeField] private PinballPlayerHandle[] handles;
 
     private PinballInputController input;
 
@@ -20,11 +20,11 @@ public class PinballPlayerController : MonoBehaviour
     {
         if (input.Fire())
         {
-            foreach (PinballHandle handle in handles) handle.Activate();
+            foreach (PinballPlayerHandle handle in handles) handle.Activate();
         }
         else
         {
-            foreach (PinballHandle handle in handles) handle.Deactivate();
+            foreach (PinballPlayerHandle handle in handles) handle.Deactivate();
         }
     }
 }
