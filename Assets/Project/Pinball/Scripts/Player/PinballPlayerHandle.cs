@@ -29,7 +29,7 @@ public class PinballPlayerHandle : MonoBehaviour
         float targetRotation = body2d.rotation;
         if (isActive) targetRotation = activatedRotation;
         else targetRotation = initialRotation;
-        body2d.SetRotation(Mathf.MoveTowardsAngle(body2d.rotation, targetRotation, rotationDelta * Time.fixedDeltaTime));
+        body2d.MoveRotation(Mathf.MoveTowardsAngle(body2d.rotation, targetRotation, rotationDelta * Time.fixedDeltaTime));
     }
 
 }

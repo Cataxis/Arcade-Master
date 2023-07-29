@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PinballPlayerController : MonoBehaviour
 {
+    [SerializeField] private float movementSpeed;
     [SerializeField] private PinballPlayerHandle[] handles;
 
     private PinballInputController input;
@@ -13,10 +14,18 @@ public class PinballPlayerController : MonoBehaviour
 
     private void Update()
     {
-        MoveHandles();
+        Move();
+        ActivateHandles();
     }
 
-    private void MoveHandles()
+    private void Move()
+    {
+        Vector2 inputDirection = input.GetInputDirection().normalized;
+        Vector2 movement = inputDirection * (movementSpeed * Time.deltaTime);
+        Vector2 finalPosition = (Vector2)transform.position + movement;        
+        transform.position  = finalPosition;
+    }
+    private void ActivateHandles()
     {
         if (input.Fire())
         {
