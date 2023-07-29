@@ -41,7 +41,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""915ae215-9b8d-4054-9278-7173fce3f07f"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone(min=0.4)"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 }
