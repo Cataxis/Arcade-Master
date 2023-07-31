@@ -6,7 +6,12 @@ public class PinballPlayerController : MonoBehaviour
     [SerializeField] private PinballPlayerHandle[] handles;
 
     private GeneralInputController input;
+    private Rigidbody2D body2d;
 
+    private void Awake()
+    {
+        body2d = GetComponent<Rigidbody2D>();
+    }
     private void Start()
     {
         input = GeneralGlobal.Instance.InputController;
@@ -21,8 +26,8 @@ public class PinballPlayerController : MonoBehaviour
     {
         Vector2 inputDirection = input.GetInputDirection().normalized;
         Vector2 movement = inputDirection * (movementSpeed * Time.deltaTime);
-        Vector2 finalPosition = (Vector2)transform.position + movement;        
-        transform.position  = finalPosition;
+        Vector2 finalPosition = (Vector2)transform.position + movement;
+        transform.position = finalPosition;
     }
     private void ActivateHandles()
     {
