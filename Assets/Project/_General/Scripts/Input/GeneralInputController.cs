@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class PinballInputController : MonoBehaviour
+public class GeneralInputController : MonoBehaviour
 {
     private PlayerInputActions input;
 

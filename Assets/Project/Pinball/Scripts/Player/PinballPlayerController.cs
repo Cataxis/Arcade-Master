@@ -5,13 +5,12 @@ public class PinballPlayerController : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] private PinballPlayerHandle[] handles;
 
-    private PinballInputController input;
+    private GeneralInputController input;
 
     private void Start()
     {
-        input = PinballGameManager.Instance.InputController;
+        input = GeneralGlobal.Instance.InputController;
     }
-
     private void Update()
     {
         Move();
