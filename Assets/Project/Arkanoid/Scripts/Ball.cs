@@ -50,43 +50,47 @@ private void OnCollisionEnter2D(Collision2D collision)
             audioSource.PlayOneShot(collisionSound);
         }
 
-        if (collision.gameObject.CompareTag("Star"))
-        {
-            if (collision.transform.localScale.x >= 0.04f)
-            {
-                collision.transform.localScale = new Vector3(0.02f, 0.02f, 0f);
-            }
-            else
-            {
-                collision.transform.localScale = new Vector3(0.04f, 0.04f, 0.04f);
-            }
-        
-            ballRb.velocity *= velocityMultiplier;
-        }
 
-        if (collision.gameObject.CompareTag("Block"))
+
+        if(collision.gameObject.TryGetComponent(out IDamagable damagable))
         {
+
+            if (damagable is Star)
+            {
+                if (collision.transform.localScale.x >= 0.04f)
+                {
+                    collision.transform.localScale = new Vector3(0.02f, 0.02f, 0f);
+                }
+                else
+                {
+                    collision.transform.localScale = new Vector3(0.04f, 0.04f, 0.04f);
+                }
+
+                ballRb.velocity *= velocityMultiplier;
+            }
+
             if (breakBlockSound != null)
             {
                 audioSource.PlayOneShot(breakBlockSound);
             }
 
+            damagable.Damage();
+
+
             ShakeCamera();
 
-            if(GameManager.Instance.effectsActive == true)
+            if (GameManager.Instance.effectsActive == true)
             {
                 if (!black)
                 {
                     ChangeColorsToBlack();
                 }
                 else
-                {   
+                {
                     ChangeColorsToWhite();
                 }
             }
-            
 
-            Destroy(collision.gameObject);
             ballRb.velocity *= velocityMultiplier;
             GameManager.Instance.BlockDestroyed();
         }

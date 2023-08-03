@@ -12,6 +12,14 @@ public class Player : MonoBehaviour
 
     private bool isPaused = false;
 
+
+    private GeneralInputController input;
+
+    private void Start()
+    {
+        input = GeneralGlobal.Instance.InputController;
+    }
+
     void Update()
     {
         if (!isPaused)
@@ -29,14 +37,13 @@ public class Player : MonoBehaviour
             TogglePauseGame();
         }
     }
-
     private void Move()
     {
-        float moveInput = Input.GetAxisRaw("Horizontal");
+        float xInput = input.GetInputDirection().x;
         Vector2 playerPosition = transform.position;
-        float normalizedMoveSpeed = moveSpeed * Time.deltaTime * 60f;
+        playerPosition.x += xInput * moveSpeed * Time.deltaTime;
+        playerPosition.x = Mathf.Clamp(playerPosition.x, -bounds, bounds);
 
-        playerPosition.x = Mathf.Clamp(playerPosition.x + moveInput * normalizedMoveSpeed, -bounds, bounds);
         transform.position = playerPosition;
     }
 
@@ -44,10 +51,18 @@ public class Player : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
     private void TogglePauseGame()
     {
         isPaused = !isPaused;
         Time.timeScale = isPaused ? 0f : 1f;
     }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(Vector3.right * bounds, .1f);
+        Gizmos.DrawSphere(Vector3.right * -bounds, .1f);
+    }
+
 }
