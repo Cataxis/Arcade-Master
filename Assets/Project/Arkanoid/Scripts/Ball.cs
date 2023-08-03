@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    [Header("Movement Player")]
     [SerializeField] private Vector2 initialVelocity;
     [SerializeField] private float velocityMultiplier;
+
+    [Header("Audio")]
     [SerializeField] private AudioClip collisionSound;
-    [SerializeField] private AudioClip blockCollisionSound;
+    [SerializeField] private AudioClip breakBlockSound;
     [SerializeField] private AudioSource audioSource;
+
+    [Header("Shake Effect")]
     [SerializeField] private float shakeMagnitude;
     [SerializeField] private float shakeDuration;
     [SerializeField] private Transform cameraTransform;
@@ -61,9 +66,9 @@ private void OnCollisionEnter2D(Collision2D collision)
 
         if (collision.gameObject.CompareTag("Block"))
         {
-            if (blockCollisionSound != null)
+            if (breakBlockSound != null)
             {
-                audioSource.PlayOneShot(blockCollisionSound);
+                audioSource.PlayOneShot(breakBlockSound);
             }
 
             ShakeCamera();

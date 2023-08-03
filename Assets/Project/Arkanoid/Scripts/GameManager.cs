@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            effectsActive = true; // Valor predeterminado si no se encuentra en PlayerPrefs
+            effectsActive = true;
         }
 
         Debug.Log(effectsActive);

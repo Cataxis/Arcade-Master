@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RotatingObject : MonoBehaviour
 {
-    public float rotationSpeed = 10f;
+    [SerializeField] float rotationSpeed = 10f;
 
     void Update()
     {

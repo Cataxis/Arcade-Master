@@ -5,8 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField] private float moveSpeed;
+    [Tooltip("Detiene al jugador en esa posición negativa y  positiva en el eje horizontal")]
     [SerializeField] private float bounds = 4.5f;
+
     private bool isPaused = false;
 
     void Update()
@@ -16,13 +19,11 @@ public class Player : MonoBehaviour
             Move();
         }
 
-        // Reiniciar escena si se presiona la tecla "R" o "Y"
         if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Joystick1Button3))
         {
             RestartScene();
         }
 
-        // Pausar o reanudar juego si se presiona la tecla "P" o "Start" en el control de Xbox
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Joystick1Button7))
         {
             TogglePauseGame();
