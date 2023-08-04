@@ -14,7 +14,7 @@ public class PinballPlayerController : MonoBehaviour
     }
     private void Start()
     {
-        input = GeneralGlobal.Instance.InputController;
+        input = Global.Instance.InputController;
     }
     private void Update()
     {

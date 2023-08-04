@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Collider2D))]
 
@@ -28,6 +25,6 @@ public class DeathZone : MonoBehaviour, IDamagable
 
     public void Damage()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        ArkanoidGameManager.Instance.Loose();
     }
 }

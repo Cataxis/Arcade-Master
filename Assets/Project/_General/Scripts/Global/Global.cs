@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class GeneralGlobal : MonoBehaviour
+public class Global : MonoBehaviour
 {
     #region Singleton
-    public static GeneralGlobal Instance;
+    public static Global Instance;
     private void Awake()
     {
         Instance = this;
@@ -15,10 +15,12 @@ public class GeneralGlobal : MonoBehaviour
     #endregion
 
     public GeneralInputController InputController { get; private set;}
+    public SceneController SceneController { get; private set;}
 
     private void OnEnable()
     {
-        InputController = GetComponentInChildren<GeneralInputController>();        
+        InputController = GetComponentInChildren<GeneralInputController>();
+        SceneController = GetComponentInChildren<SceneController>();        
     }
 
 }
