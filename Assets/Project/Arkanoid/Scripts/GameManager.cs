@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public bool effectsActive;
-    public int blocksLeft;
+    [HideInInspector] public int blocksLeft;
 
     private const string EffectsActiveKey = "EffectsActive";
 
@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
 
         if (blocksLeft <= 0)
         {
+            Time.timeScale = .2f;
+            //TODO TRANSICIÓN
             LoadNextLevel();
         }
     }

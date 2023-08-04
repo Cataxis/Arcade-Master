@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamagable
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
@@ -60,9 +60,18 @@ public class Player : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(Vector3.right * bounds, .1f);
-        Gizmos.DrawSphere(Vector3.right * -bounds, .1f);
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(Vector3.right * bounds, .4f);
+        Gizmos.DrawSphere(Vector3.right * -bounds, .4f);
     }
 
+    public void Damage()
+    {
+        AudioSource audioSource = GetComponent<AudioSource>();
+        
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+    }
 }
