@@ -9,23 +9,22 @@ public class ArkanoidBall : MonoBehaviour
     [Header("Collision")]
     [SerializeField] private float radius;
 
-    private Transform targetTransform;
+    private Rigidbody2D body;
 
     private bool isActive = false;
-    private bool alreadyCollided = false;
     private float currentSpeed = 0f;
 
     private Vector2 direction = Vector2.zero;
     private Vector2 velocity = Vector2.zero;
 
-    private Collider2D lastCollisionCol;
+    ContactPoint2D[] contactPoints = new ContactPoint2D[1];
 
     private void Awake()
     {
-        targetTransform = transform;
+        body = GetComponent<Rigidbody2D>();
         currentSpeed = defaultSpeed;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         CalculateCollision();
         Move();
@@ -33,9 +32,10 @@ public class ArkanoidBall : MonoBehaviour
 
     public void Activate()
     {
-        targetTransform.SetParent(null);
+        body.isKinematic = false;
+        transform.SetParent(null);
         isActive = true;
-        direction = new Vector2(targetTransform.position.x, 1f).normalized;
+        direction = new Vector2(transform.position.x, 1f).normalized;
     }
     public void Deactivate()
     {
@@ -45,36 +45,23 @@ public class ArkanoidBall : MonoBehaviour
     private void Move()
     {
         if (!isActive) return;
-        velocity = direction * (currentSpeed * Time.deltaTime);
-        targetTransform.position += (Vector3)velocity;
+        velocity = direction * (currentSpeed * Time.fixedDeltaTime);
+        body.position += velocity;
     }
     private void CalculateCollision()
-    {
-        if (!isActive) return;
-        RaycastHit2D hit = Physics2D.CircleCast(targetTransform.position, radius, direction,velocity.magnitude);
-        if (hit.collider == null)
+    {     
+        int contacts = body.GetContacts(contactPoints);
+        if (contacts == 0) return;
+
+        if (contactPoints[0].collider.TryGetComponent(out IDamagable _damagable))
         {
-            alreadyCollided = false;
-            return;
+            if (_damagable is ArkanoidBlock) currentSpeed *= speedMultiplier;
+            _damagable.Damage();
         }
 
-        if (lastCollisionCol != null && hit.collider != lastCollisionCol) alreadyCollided = false;
-        
-
-        if (!alreadyCollided)
-        {
-            alreadyCollided = true;
-
-            lastCollisionCol = hit.collider;
-            if (lastCollisionCol.TryGetComponent(out IDamagable _damagable))
-            {
-                if (_damagable is ArkanoidBlock) currentSpeed *= speedMultiplier;
-                _damagable.Damage();
-            }
-
-            Vector2 targetDirection = direction - (Vector2.Dot(direction, hit.normal) * 2f) * hit.normal;
-              direction = targetDirection.normalized;
-        }
+        Vector2 targetDirection = direction - (Vector2.Dot(direction, contactPoints[0].normal) * 2f) * contactPoints[0].normal;
+        Debug.DrawLine(contactPoints[0].point, contactPoints[0].point + targetDirection, Color.red, 2f);
+        direction = targetDirection.normalized;
     }
 
 

@@ -9,12 +9,12 @@ public class ArkanoidPlayer : MonoBehaviour
     [SerializeField] private ArkanoidBall initialBall;
 
     private GeneralInputController input;
-    private Transform targetTransform;
+    private Rigidbody2D body;
     private bool isActive = true;
 
-    private void Awake() => targetTransform = transform;
+    private void Awake() => body = GetComponent<Rigidbody2D>();
     private void Start() => input = Global.Instance.InputController;
-    void Update()
+    void FixedUpdate()
     {
         TryLaunch();
         Move();
@@ -26,13 +26,13 @@ public class ArkanoidPlayer : MonoBehaviour
         
         float xMovement = input.GetInputDirection().x;
         Vector2 direction = new Vector2(xMovement, 0f);
-        Vector2 finalMovement = direction * (speed * Time.deltaTime);
+        Vector2 finalMovement = direction * (speed * Time.fixedDeltaTime);
 
-        Vector2 finalPosition = targetTransform.position;
+        Vector2 finalPosition = body.position;
         finalPosition += finalMovement;
         finalPosition.x = Mathf.Clamp(finalPosition.x, -xBounds, xBounds);
 
-        targetTransform.position = finalPosition;
+        body.position = finalPosition;
     }
     private void Activate() => isActive = true;
     private void Deactivate() => isActive = false;
