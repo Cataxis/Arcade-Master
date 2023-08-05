@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Project/Arkanoid/Scenes/init.unity
+    path: Assets/Project/Arkanoid/Scenes/Arkanoid_level_01.unity
     guid: 9800ad262466eba4591281e410148af6
   - enabled: 1
     path: Assets/Project/Arkanoid/Scenes/end.unity

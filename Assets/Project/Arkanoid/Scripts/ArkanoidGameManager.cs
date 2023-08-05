@@ -10,6 +10,8 @@ public class ArkanoidGameManager : MonoBehaviour
     }
     #endregion
 
+    [SerializeField] private LevelSO levels;
+
     public ArkanoidEffectController Effects { get; private set;}
     private int blocksLeft = 0;
 

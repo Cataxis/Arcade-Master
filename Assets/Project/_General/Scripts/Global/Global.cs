@@ -16,11 +16,12 @@ public class Global : MonoBehaviour
 
     public GeneralInputController InputController { get; private set;}
     public SceneController SceneController { get; private set;}
+    public CameraController CameraController { get; private set;}
 
     private void OnEnable()
     {
         InputController = GetComponentInChildren<GeneralInputController>();
-        SceneController = GetComponentInChildren<SceneController>();        
+        SceneController = GetComponentInChildren<SceneController>();
+        CameraController = GetComponentInChildren<CameraController>();        
     }
-
 }

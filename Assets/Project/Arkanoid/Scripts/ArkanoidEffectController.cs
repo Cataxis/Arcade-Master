@@ -2,13 +2,8 @@ using UnityEngine;
 
 public class ArkanoidEffectController : MonoBehaviour
 {
-    private CameraShake cameraShake;
     private bool isInverted = false;
 
-    private void Start()
-    {
-        cameraShake = FindObjectOfType<CameraShake>();
-    }
 
     public void ToggleColors()
     {
@@ -17,7 +12,7 @@ public class ArkanoidEffectController : MonoBehaviour
 
         isInverted = !isInverted;
     }
-    public void ShakeCamera() => cameraShake?.Shake();
+    public void ShakeCamera() => Global.Instance.CameraController.Shake();
     
 
     private void ChangeColorsToWhite()
