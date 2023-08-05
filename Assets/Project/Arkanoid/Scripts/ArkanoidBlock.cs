@@ -7,9 +7,11 @@ public class ArkanoidBlock : MonoBehaviour, IDamagable
     public void Damage()
     {      
         ArkanoidGameManager.Instance.BlockDestroyed();
-        AudioSource audioSource = GetComponent<AudioSource>();
-        audioSource?.Play();
-        
+        DestroyAnimation();
+    }
+
+    private void DestroyAnimation()
+    {
         float duration = 0.5f;
         AnimationCurve crushCurve = new AnimationCurve(
             new Keyframe(0, 0),
