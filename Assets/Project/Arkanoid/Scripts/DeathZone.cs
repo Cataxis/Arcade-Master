@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEditor;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Collider2D))]
 
@@ -20,5 +20,6 @@ public class DeathZone : MonoBehaviour, IDamagable
     public void Damage()
     {
         ArkanoidGameManager.Instance.Loose();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
